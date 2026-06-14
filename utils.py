@@ -1,4 +1,4 @@
-
+import math
 #______________________________________________________________________________
 # Simple Data Structures: infinity, Dict, Struct
 
@@ -543,11 +543,36 @@ class FIFOQueue(Queue):
             self.start = 0
         return e
 
-
-
 ## Fig: The idea is we can define things like Fig[3,10] later.
 ## Alas, it is Fig[3,10] not Fig[3.10], because that would be the same as Fig[3.1]
 Fig = {}
 
+class branch_and_bound_execute():
+    def __init__(self):
+        self.A = []
+
+    def append(self, item):
+        self.A.append(item)
+
+    def pop(self):
+        return self.A.pop()
+
+    def extend(self, items):
+        self.A.extend(items)
+        self.A.sort(key=lambda x:x.path_cost, reverse=True)
 
 
+class branch_and_bound_underestimation_execute():
+    def __init__(self, problem):
+        self.problem = problem
+        self.A = []
+
+    def append(self, item):
+        self.A.append(item)
+
+    def pop(self):
+        return self.A.pop()
+
+    def extend(self, items):
+        self.A.extend(items)
+        self.A.sort(key=lambda x:x.path_cost + self.problem.h(x), reverse=True)

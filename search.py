@@ -97,13 +97,16 @@ def graph_search(problem, fringe):
     """Search through the successors of a problem to find a goal.
     The argument fringe should be an empty queue.
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
+    count = 0
     closed = {}
     fringe.append(Node(problem.initial))
     while fringe:
         node = fringe.pop()
         if problem.goal_test(node.state):
+            print("Nodos expandidos: ", count)
             return node
         if node.state not in closed:
+            count += 1
             closed[node.state] = True
             fringe.extend(node.expand(problem))
     return None
@@ -118,7 +121,11 @@ def depth_first_graph_search(problem):
     """Search the deepest nodes in the search tree first. [p 74]"""
     return graph_search(problem, Stack())
 
+def branch_and_bound(problem):
+    return graph_search(problem, branch_and_bound_execute())
 
+def branch_and_bound_underestimation(problem):
+    return graph_search(problem, branch_and_bound_underestimation_execute(problem))
 
 # _____________________________________________________________________________
 # The remainder of this file implements examples for the search algorithms.
