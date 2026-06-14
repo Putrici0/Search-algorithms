@@ -2,15 +2,25 @@
 
 import search
 
-ab = search.GPSProblem('A', 'B'
-                       , search.romania)
+def show_solution(solution):
 
-print("Búsqueda en Anchura: ")
-print(search.breadth_first_graph_search(ab).path())
-print("Búsqueda en Profundidad: ")
-print(search.depth_first_graph_search(ab).path())
+    path = list(reversed(solution.path()))
+    states = [node.state for node in path]
 
-print("Branch and Bound: ")
-print(search.branch_and_bound(ab).path())
-print("Branch and Bound con subestimación: ")
-print(search.branch_and_bound_underestimation(ab).path())
+    print("Ruta solución:", states)
+    print("Coste total:", solution.path_cost)
+
+
+ab = search.GPSProblem('A', 'B', search.romania)
+
+print("Búsqueda en Anchura:")
+show_solution(search.breadth_first_graph_search(ab))
+
+print("\nBúsqueda en Profundidad:")
+show_solution(search.depth_first_graph_search(ab))
+
+print("\nBranch and Bound:")
+show_solution(search.branch_and_bound(ab))
+
+print("\nBranch and Bound con Subestimación:")
+show_solution(search.branch_and_bound_underestimation(ab))
